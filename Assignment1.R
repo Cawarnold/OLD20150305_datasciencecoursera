@@ -16,10 +16,20 @@ pollutantmean <- function(directory, pollutant, id = 1:332) {
   for (i in id) {
     dat <- rbind(dat, read.csv(files[i]))
   }
-  head(dat)
-  #dat_subset <- dat[dat[, "ID"] == id, ]
-  #meanOfPollutant <- mean(dat_subset$pollutant, na.rm = TRUE)
-  #meanOfPollutant
+  print("Sausage")
+  print(head(dat))
+  print("and")
+  dat2 <- dat[dat$ID == id, c("Date", "sulfate",	"nitrate", "ID")]
+  print(head(dat2))
+  subset1 <- subset(dat, dat$ID == id)
+  print("bun")
+  print(head(subset1))
+  print("!")
+  dat_subset <- dat[dat[, "ID"] == id, pollutant]
+  print(head(dat_subset))
+  dat_subset1 <- complete.cases(dat_subset)
+  meanOfPollutant <- mean(dat_subset$pollutant, na.rm = TRUE)
+  print(meanOfPollutant)
 }
 
 
