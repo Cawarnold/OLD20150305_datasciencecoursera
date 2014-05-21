@@ -21,21 +21,24 @@ pollutantmean <- function(directory, pollutant, id = 1:332) {
   print("and")
   dat2 <- dat[dat$ID == id, c("Date", "sulfate",	"nitrate", "ID")]
   print(head(dat2))
-  subset1 <- subset(dat, dat$ID == id)
+  subset1 <- subset(dat, dat$ID == id , select = pollutant)
   print("bun")
   print(head(subset1))
+  mean2 <- mean(complete.cases(subset1))
+  print(mean2)
   print("!")
-  dat_subset <- dat[dat[, "ID"] == id, pollutant]
-  print(head(dat_subset))
-  dat_subset1 <- complete.cases(dat_subset)
-  meanOfPollutant <- mean(dat_subset$pollutant, na.rm = TRUE)
-  print(meanOfPollutant)
+  #dat_subset <- dat[dat[, "ID"] == id, pollutant]
+  #print(head(dat_subset))
+  #dat_subset1 <- complete.cases(dat_subset)
+  #meanOfPollutant <- mean(dat_subset$pollutant, na.rm = TRUE)
+  #print(meanOfPollutant)
 }
 
+getwd()
 
 pollutantmean("specdata", "sulfate", 1:10)
 ## [1] 4.064
 pollutantmean("specdata", "nitrate", 70:72)
 ## [1] 1.706
-pollutantmean1("specdata", "nitrate", 23)
+pollutantmean("specdata", "nitrate", 23)
 ## [1] 1.281
