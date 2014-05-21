@@ -4,34 +4,28 @@
 #https://class.coursera.org/rprog-003/forum/thread?thread_id=607
 #https://class.coursera.org/rprog-003/forum/thread?thread_id=655
 
-dataset_url1 <- "https://d396qusza40orc.cloudfront.net/rprog%2Fdata%2Fspecdata.zip"
-download.file(dataset_url1, "specdata.zip")
-specdata <- unzip("specdata.zip", exdir = "specdata")
-#specdata1 <- unzip("specdata.zip")
+#dataset_url1 <- "https://d396qusza40orc.cloudfront.net/rprog%2Fdata%2Fspecdata.zip"
+#download.file(dataset_url1, "specdata.zip")
+#specdata <- unzip("specdata.zip", exdir = "specdata")
 #list.files("specdata/specdata")
 
-list.files(path = '~/specdata')
-
-#files1 <- list.files("specdata/specdata", full.names = TRUE)
-#files2 <- dir("specdata/specdata")
-#head(files2)
-
 pollutantmean <- function(directory, pollutant, id = 1:332) {
-  files <- list.files("specdata/"directory, full.names = TRUE)  ## creates a list of files
+  files <- list.files(paste("specdata/",directory, sep=""), full.names = TRUE)## creates a list of files
+  cat(files)
   dat <- data.frame()  #creates an empty data frame
-  for (i in id) {
+  for (i in 1:332) {
     dat <- rbind(dat, read.csv(files[i]))
   }
-  dat_subset <- dat[dat[, "ID"] == id, ]
-  meanOfPollutant <- mean(dat_subset$pollutant, na.rm = TRUE)
-  meanOfPollutant
+  head(dat)
+  #dat_subset <- dat[dat[, "ID"] == id, ]
+  #meanOfPollutant <- mean(dat_subset$pollutant, na.rm = TRUE)
+  #meanOfPollutant
 }
 
-#sexample(mean)
-## Notes
-# Maybe I should use 20:1 rather than 1:20.
-# this may stop the warning, longer object length is not a multiple of shorter object length
 
-
-pollutantmean("specdata", "sulfate", id = 1:10)
-
+pollutantmean("specdata", "sulfate", 1:10)
+## [1] 4.064
+pollutantmean("specdata", "nitrate", 70:72)
+## [1] 1.706
+pollutantmean1("specdata", "nitrate", 23)
+## [1] 1.281

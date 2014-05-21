@@ -142,6 +142,20 @@ download.file(dataset_url, "diet_data.zip")
 unzip("diet_data.zip", exdir = "diet_data")
 
 
+
+files <- (list.files(path.expand("specdata"), full.names = TRUE)) 
+files
+
+directory1 <- "specpathhhhh"
+
+
+paste("specpath/",directory1, sep = "")
+
+
+
+
+
+
 #### Test pollutantmean2 ####
 
 pollutantmean("specdata", "sulfate", 1:10)
