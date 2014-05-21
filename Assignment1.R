@@ -13,7 +13,7 @@ pollutantmean <- function(directory, pollutant, id = 1:332) {
   files <- list.files(paste("specdata/",directory, sep=""), full.names = TRUE)## creates a list of files
   cat(files)
   dat <- data.frame()  #creates an empty data frame
-  for (i in 1:332) {
+  for (i in id) {
     dat <- rbind(dat, read.csv(files[i]))
   }
   head(dat)
