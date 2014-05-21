@@ -4,12 +4,17 @@
 #When add, commit, push to github.
 #use gui to open a shell and view the changes
 
+
+
 #### Part 1 ####
 
 dataset_url1 <- "https://d396qusza40orc.cloudfront.net/rprog%2Fdata%2Fspecdata.zip"
-download.file(dataset_url1, "specdata.zip")
+download.file(dataset_url1, "spec_data.zip")
 specdata <- unzip("specdata.zip", exdir = "specdata")
 list.files("specdata/specdata")
+
+setwd("~/R Working Directory")
+getwd()
 
 #### Practice ####
 
@@ -74,11 +79,16 @@ pollutantmean1 <- function(directory, pollutant, id = 1:332) {
   dat_subset <- dat[dat[, "ID"] == id, ] 
   
     ## Return the mean of the pollutant across all monitors list
-    ## in the 'id' vector (ignoring NA values)
-  meanOfPollutant
+
+ ## in the 'id' vector (ignoring NA values)
+
+ meanOfPollutant
 }
 
 print("specdata/"directory)
+
+
+
 
 #### Trial2 ####
 
@@ -115,6 +125,23 @@ for (i in 68:74) {
 mean(dat[dat[, "ID"] == 70:72, ]$"nitrate", na.rm = TRUE)
 
 
+#Warning message:
+#  In c(1, 2, 3, 4) + c(1, 10, 100) :
+#  longer object length is not a multiple of shorter object length
+#
+#| Not exactly. Give it another go. Or, type info() for more options.
+#
+#| Type c(1, 2, 3, 4) + c(0, 10, 100) to see how R handles adding two vectors, when the shorter vector's
+#| length does not divide evenly into the longer vector's length. Don't worry about assigning the result to
+#| a variable.
+
+
+#### Trial4 ####
+dataset_url <- "http://dl.dropboxusercontent.com/u/8036886/diet_data.zip"
+download.file(dataset_url, "diet_data.zip")
+unzip("diet_data.zip", exdir = "diet_data")
+
+
 #### Test pollutantmean2 ####
 
 pollutantmean("specdata", "sulfate", 1:10)
@@ -131,6 +158,8 @@ pollutantmean3 <- function(directory, pollutant, id = 1:332) {
 }
 
 pollutantmean3("specdata", "nitrate", 23)
+
+#### Notes ####
 
 
 #### Part 2 ####
@@ -188,7 +217,49 @@ if(nobs > threshold){
   sulfate <- filecom[2]
   ok <- rbind(cor(nitrate,sulfate),ok)
 
+#### trial from forum guy  
+  Hello I have finally struggled to get the output of the corr function right but I could not solve the problem of summary(cr) generating slightly different results. I just want a post-mortem for the reasons. Here is my code and thank you very much!
+    
+    corr <- function(directory, threshold = 0) { 
+      cr <- vector("numeric")
+      dat <- data.frame()
+      
+      files_list <- dir("./specdata", full.names = TRUE)
+      
+      for (i in 1:length(files_list)) { 
+        
+        dat <- read.csv(files_list[i])
+        
+        noNA <- na.omit(dat)
+        
+        count <- nrow(noNA)
+        
+        if(count > threshold) {
+          
+          cr <- append(cr, cor(noNA$sulfate, noNA$nitrate))
+          
+        }
+        
+      }
+      
+      round(cr, digits = 5)
+      
+    }
   
+  
+## helpful tips
+
+get the list of files store it in variable  "rawDataDirectory"
+get the count of files and store in other variable "rawFilesCount"
+create empty data.frame "data"
+create empty vector for correlation "correlation"
+start a loop from 1: rawFilesCount
+inside the loop do the following 
+create empty data.frame "rawData"
+use rbind() to read each file
+remove NA from the set "na.omit()"
+count the remaining rows
+if the count is larger than "threshold" get the cor() and append it to the "correlation" vector.
   
 
   
