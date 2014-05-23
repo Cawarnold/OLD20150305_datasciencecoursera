@@ -22,9 +22,12 @@ pollutantmean <- function(directory, pollutant, id = 1:332) {
   dat2 <- dat[dat$ID == id, c("Date", "sulfate",	"nitrate", "ID")]
   print(head(dat2))
   subset1 <- subset(dat, dat$ID == id , select = pollutant)
+  subset2 <- subset(dat2, dat2$ID == id , select = pollutant)
   print("bun")
   print(head(subset1))
-  mean2 <- mean(complete.cases(subset1))
+  mean1 <- mean(complete.cases(subset1))
+  mean2 <- mean(complete.cases(subset2))
+  print(mean1)
   print(mean2)
   print("!")
   #dat_subset <- dat[dat[, "ID"] == id, pollutant]
