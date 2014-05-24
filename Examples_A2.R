@@ -25,7 +25,7 @@ f001[332, "nitrate"]
 f001[f001$Date == "2005-07-15", "nitrate"]
 f001[f001[, "Date"] == "2005-07-15", "sulfate"]
 
-files <- list.files("specdata/specdata", full.names = TRUE)
+files <- list.files("specdata", full.names = TRUE)
 files
 
 head(read.csv(files[50]))
