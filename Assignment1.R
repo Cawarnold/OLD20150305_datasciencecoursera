@@ -19,32 +19,19 @@ specdata <- unzip("specdata.zip", exdir = "specdata")
 #files2 <- dir("specdata/specdata")
 #head(files2)
 
-pollutantmean <- function(directory, pollutant, id = 1:332) {
-  files <- list.files(directory, full.names = TRUE) ## creates a list of files
-  #print(read.csv(files[322]))
-  dat <- data.frame()  #creates an empty data frame
-  for (i in id) {
-    dat <- rbind(dat, read.csv(files[i]))
-  }
-  #print(tail(dat))
-  dat_subset <- dat[dat[, "ID"] == id, pollutant]
-  #print(tail(dat_subset))
-  meanOfPollutant <- mean(dat_subset, na.rm = TRUE)
-  print(meanOfPollutant)
-}
 
 
-#sexample(mean)
+#example(mean)
 ## Notes
 # Maybe I should use 20:1 rather than 1:20.
 # this may stop the warning, longer object length is not a multiple of shorter object length
 
 debug(pollutantmean)
-pollutantmean("specdata", "sulfate", id = 1:10)
-## My trial
-pollutantmean("specdata", "sulfate", 1:2)
+
+pollutantmean("specdata", "sulfate", 1:10)
 ## [1] 4.064
 pollutantmean("specdata", "nitrate", 70:72)
 ## [1] 1.706
 pollutantmean("specdata", "nitrate", 23)
 ## [1] 1.281
+

@@ -164,6 +164,20 @@ pollutantmean <- function(directory, pollutant, id = 1:332) {
 }
 
 
+
+files <- (list.files(path.expand("specdata"), full.names = TRUE)) 
+files
+
+directory1 <- "specpathhhhh"
+
+
+paste("specpath/",directory1, sep = "")
+
+
+
+
+
+
 #### Test pollutantmean2 ####
 
 pollutantmean("specdata", "sulfate", 1:10)
