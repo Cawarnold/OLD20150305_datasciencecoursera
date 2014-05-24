@@ -40,12 +40,13 @@ for (i in 1:5) {
   print(i)
 }
 
-
+files <- list.files("specdata", full.names = TRUE)
 dat <- data.frame()
 # rm(dat) - to remove dat from workspace
 for (i in 1:30) {
   dat <- rbind(dat, read.csv(files[i]))
 }
+
 
 tail(dat)
 dim(dat)
@@ -137,9 +138,30 @@ mean(dat[dat[, "ID"] == 70:72, ]$"nitrate", na.rm = TRUE)
 
 
 #### Trial4 ####
-dataset_url <- "http://dl.dropboxusercontent.com/u/8036886/diet_data.zip"
-download.file(dataset_url, "diet_data.zip")
-unzip("diet_data.zip", exdir = "diet_data")
+#####
+
+files <- list.files("specdata", full.names = TRUE)
+dat <- data.frame()
+# rm(dat) - to remove dat from workspace
+for (i in 1:30) {
+  dat <- rbind(dat, read.csv(files[i]))
+}
+dat[dat[, "sulfate"] != NA, "sulfate"]
+pollutantmean("specdata", "sulfate", 1:2)
+
+pollutantmean <- function(directory, pollutant, id = 1:332) {
+  files <- list.files(directory, full.names = TRUE) ## creates a list of files
+  #print(read.csv(files[322]))
+  dat <- data.frame()  #creates an empty data frame
+  for (i in id) {
+    dat <- rbind(dat, read.csv(files[i]))
+  }
+  #print(tail(dat))
+  dat_subset <- dat[dat[, "ID"] == id, pollutant]
+  #print(tail(dat_subset))
+  meanOfPollutant <- mean(dat_subset, na.rm = TRUE)
+  print(meanOfPollutant)
+}
 
 
 #### Test pollutantmean2 ####

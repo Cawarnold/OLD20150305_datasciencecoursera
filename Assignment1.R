@@ -8,7 +8,7 @@ dataset_url1 <- "https://d396qusza40orc.cloudfront.net/rprog%2Fdata%2Fspecdata.z
 download.file(dataset_url1, "specdata.zip")
 specdata <- unzip("specdata.zip", exdir = "specdata")
 
-
+####Set wd to R working Directory
 #specdata1 <- unzip("specdata.zip")
 #list.files("specdata/specdata")
 
