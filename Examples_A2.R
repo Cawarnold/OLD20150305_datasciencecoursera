@@ -174,7 +174,34 @@ directory1 <- "specpathhhhh"
 paste("specpath/",directory1, sep = "")
 
 
-
+#### Trial 5 ####
+pollutantmean <- function(directory, pollutant, id = 1:332) {
+  files <- list.files(paste("specdata/",directory, sep=""), full.names = TRUE)## creates a list of files
+  cat(files)
+  dat <- data.frame()  #creates an empty data frame
+  for (i in id) {
+    dat <- rbind(dat, read.csv(files[i]))
+  }
+  print("Sausage")
+  print(head(dat))
+  print("and")
+  dat2 <- dat[dat$ID == id, c("Date", "sulfate",  "nitrate", "ID")]
+  print(head(dat2))
+  subset1 <- subset(dat, dat$ID == id , select = pollutant)
+  subset2 <- subset(dat2, dat2$ID == id , select = pollutant)
+  print("bun")
+  print(head(subset1))
+  mean1 <- mean(complete.cases(subset1))
+  mean2 <- mean(complete.cases(subset2))
+  print(mean1)
+  print(mean2)
+  print("!")
+  #dat_subset <- dat[dat[, "ID"] == id, pollutant]
+  #print(head(dat_subset))
+  #dat_subset1 <- complete.cases(dat_subset)
+  #meanOfPollutant <- mean(dat_subset$pollutant, na.rm = TRUE)
+  #print(meanOfPollutant)
+}
 
 
 

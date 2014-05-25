@@ -19,6 +19,20 @@ specdata <- unzip("specdata.zip", exdir = "specdata")
 #files2 <- dir("specdata/specdata")
 #head(files2)
 
+pollutantmean <- function(directory, pollutant, id = 1:332) {
+  files <- list.files(directory, full.names = TRUE) ## creates a list of files
+  #print(read.csv(files[322]))
+  dat <- data.frame()  #creates an empty data frame
+  for (i in id) {
+    dat <- rbind(dat, read.csv(files[i]))
+  }
+  #print(tail(dat))
+  dat_subset <- dat[dat[, "ID"] == id, pollutant]
+  #print(tail(dat_subset))
+  meanOfPollutant <- mean(dat_subset, na.rm = TRUE)
+  print(meanOfPollutant)
+}
+
 
 
 #example(mean)
