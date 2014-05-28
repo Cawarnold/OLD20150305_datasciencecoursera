@@ -4,7 +4,10 @@
 #When add, commit, push to github.
 #use gui to open a shell and view the changes
 
-
+Try git fetch --dry-run The manual (git help fetch) says:
+  
+  --dry-run
+Show what would be done, without making any changes.
 
 #### Part 1 ####
 
