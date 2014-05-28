@@ -28,7 +28,7 @@ f001[332, "nitrate"]
 f001[f001$Date == "2005-07-15", "nitrate"]
 f001[f001[, "Date"] == "2005-07-15", "sulfate"]
 
-files <- list.files("specdata/specdata", full.names = TRUE)
+files <- list.files("specdata", full.names = TRUE)
 files
 
 head(read.csv(files[50]))
@@ -43,12 +43,13 @@ for (i in 1:5) {
   print(i)
 }
 
-
+files <- list.files("specdata", full.names = TRUE)
 dat <- data.frame()
 # rm(dat) - to remove dat from workspace
 for (i in 1:30) {
   dat <- rbind(dat, read.csv(files[i]))
 }
+
 
 tail(dat)
 dim(dat)
@@ -140,9 +141,30 @@ mean(dat[dat[, "ID"] == 70:72, ]$"nitrate", na.rm = TRUE)
 
 
 #### Trial4 ####
-dataset_url <- "http://dl.dropboxusercontent.com/u/8036886/diet_data.zip"
-download.file(dataset_url, "diet_data.zip")
-unzip("diet_data.zip", exdir = "diet_data")
+#####
+
+files <- list.files("specdata", full.names = TRUE)
+dat <- data.frame()
+# rm(dat) - to remove dat from workspace
+for (i in 1:30) {
+  dat <- rbind(dat, read.csv(files[i]))
+}
+dat[dat[, "sulfate"] != NA, "sulfate"]
+pollutantmean("specdata", "sulfate", 1:2)
+
+pollutantmean <- function(directory, pollutant, id = 1:332) {
+  files <- list.files(directory, full.names = TRUE) ## creates a list of files
+  #print(read.csv(files[322]))
+  dat <- data.frame()  #creates an empty data frame
+  for (i in id) {
+    dat <- rbind(dat, read.csv(files[i]))
+  }
+  #print(tail(dat))
+  dat_subset <- dat[dat[, "ID"] == id, pollutant]
+  #print(tail(dat_subset))
+  meanOfPollutant <- mean(dat_subset, na.rm = TRUE)
+  print(meanOfPollutant)
+}
 
 
 
@@ -155,7 +177,34 @@ directory1 <- "specpathhhhh"
 paste("specpath/",directory1, sep = "")
 
 
-
+#### Trial 5 ####
+pollutantmean <- function(directory, pollutant, id = 1:332) {
+  files <- list.files(paste("specdata/",directory, sep=""), full.names = TRUE)## creates a list of files
+  cat(files)
+  dat <- data.frame()  #creates an empty data frame
+  for (i in id) {
+    dat <- rbind(dat, read.csv(files[i]))
+  }
+  print("Sausage")
+  print(head(dat))
+  print("and")
+  dat2 <- dat[dat$ID == id, c("Date", "sulfate",  "nitrate", "ID")]
+  print(head(dat2))
+  subset1 <- subset(dat, dat$ID == id , select = pollutant)
+  subset2 <- subset(dat2, dat2$ID == id , select = pollutant)
+  print("bun")
+  print(head(subset1))
+  mean1 <- mean(complete.cases(subset1))
+  mean2 <- mean(complete.cases(subset2))
+  print(mean1)
+  print(mean2)
+  print("!")
+  #dat_subset <- dat[dat[, "ID"] == id, pollutant]
+  #print(head(dat_subset))
+  #dat_subset1 <- complete.cases(dat_subset)
+  #meanOfPollutant <- mean(dat_subset$pollutant, na.rm = TRUE)
+  #print(meanOfPollutant)
+}
 
 
 
